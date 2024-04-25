@@ -202,6 +202,7 @@ console.log(processData("merhaba"));
 console.log(processData("merhaba", {reverse: true}));
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Alias & Interface
 
 const ali:{ id: number; name:string; isActive: boolean} = {
     id: 1,
@@ -277,3 +278,52 @@ let bob: Employee = {id: 3, name:"bob", department: "IT" }
 let ali3: Manager = {id: 3, name:"ali", employees:[mehmet3, bob]}
 
 console.log(printStaffDetails(ali3));
+
+/////////////////////////
+interface Person {
+    name: string
+}
+
+interface DogOwner extends Person {
+    dogName: string
+}
+
+interface Manager2 extends Person {
+    managePeople():void,
+    delegateTasks():void
+}
+
+function getEmployee():Person | DogOwner | Manager2{
+    let randomVal = Math.random()
+    if(randomVal < 0.33) {
+        return {name:"hakan"}
+    } else if(randomVal < 0.66) {
+        return {name: "ali", dogName: "kurt"}
+    } else {
+        return {
+            name:"mehmet",
+            managePeople(){
+                console.log("managing people");
+            },
+            delegateTasks() {
+                console.log("delegating task");
+            },
+        }
+    }
+}
+getEmployee()
+
+let employeeVar: Person | DogOwner | Manager2 = getEmployee()
+
+function isManager(obj:Person | DogOwner | Manager2):obj is Manager2{
+    if("managePeople" in obj) { 
+        return true
+    } else {
+        return false
+    }
+}
+
+if(isManager(employeeVar)){
+    console.log(employeeVar.delegateTasks());
+}
+console.log(isManager(employeeVar));
