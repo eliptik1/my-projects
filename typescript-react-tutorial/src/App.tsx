@@ -1,7 +1,12 @@
+import Component from "./starter/02-props";
+
 function App() {
   return (
     <main>
-      <h2>React & Typescript asdasd</h2>
+      <Component name="ali" id={123}>
+
+      </Component>
+      <Component name="ali" id={456} />
     </main>
   );
 }
