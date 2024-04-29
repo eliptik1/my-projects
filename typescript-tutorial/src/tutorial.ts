@@ -327,3 +327,42 @@ if(isManager(employeeVar)){
     console.log(employeeVar.delegateTasks());
 }
 console.log(isManager(employeeVar));
+
+//////////////////////////////////////////////////
+
+//generic
+
+
+function getFirstElement<Type>(array: Type[]){
+    return array[0]
+}
+const firstNum = getFirstElement([1,2,3])
+//const firstNum = getFirstElement<number>([1,2,3])
+const firstStr = getFirstElement(["hello", "world"])
+
+const mixed = getFirstElement(["1",2,"hello"])
+
+////////
+
+type ApiResponse<Data> = {
+    data: Data,
+    isError: boolean
+}
+
+type UserResponse = ApiResponse<{name:string, age:number}>
+type BlogResponse = ApiResponse<{title:string}>
+
+const response: UserResponse = {
+    data: {
+        name:"ali",
+        age: 26
+    },
+    isError: false
+}
+
+const blogResponse: BlogResponse = {
+    data: {
+        title: "blog title"
+    },
+    isError: false
+}
