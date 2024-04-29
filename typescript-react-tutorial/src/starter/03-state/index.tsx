@@ -25,18 +25,18 @@ const navLinks = [
 ]
 
 function Component() {
-  const [text, setText] = useState("asdasd") 
-  const [number, setNumber] = useState(123) 
-  const [list, setList] = useState<string[]>([]) 
+  // const [text, setText] = useState("asdasd") 
+  // const [number, setNumber] = useState(123) 
+  // const [list, setList] = useState<string[]>([]) 
   const [links, setLinks] = useState<Link[]>(navLinks)
   return (
     <div>
       <h2>React & Typescript</h2>
       
       <button className="btn btn-center" onClick={()=> {
-        setText("text")
-        setNumber(555)
-        setList(["hello", "world"])
+        // setText("text")
+        // setNumber(555)
+        // setList(["hello", "world"])
         setLinks([...links, {id: 4, url: "dasdasd", text: "contact"}])
         }
       }

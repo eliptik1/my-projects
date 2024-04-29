@@ -1,5 +1,8 @@
 //import Component from "./starter/02-props";
-import Component from "./starter/03-state";
+//import Component from "./starter/03-state";
+//import Component from "./starter/04-events";
+//import Component from "./starter/05-challenge";
+import Component from "./starter/06-context";
 
 function App() {
   return (
@@ -9,7 +12,14 @@ function App() {
           <h2>hello world</h2>
       </Component>
       <Component name="ali" id={456} /> */}
-      {/* State */}
+      {/* //State */}
+      {/* <Component/> */}
+
+      {/* //Challenge 
+      <Component type="basic" name="ali"/>
+      <Component type="advanced" name="ömer" email="omer@gmail.com"/>*/}
+
+      {/* //Context */}
       <Component/>
     </main>
   );
