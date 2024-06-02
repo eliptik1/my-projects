@@ -1,9 +1,9 @@
 //Boggle Word Checker
-const board = [
-  ["A", "B", "H"],
-  ["F", "A", "H"],
-  ["G", "C", "G"],
-];
+// const board = [
+//   ["A", "B", "H"],
+//   ["F", "A", "H"],
+//   ["G", "C", "G"],
+// ];
 //coordinates array:
 //letterIndex 0 letter A row: 0 col: 0
 //letterIndex 1 letter A row: 1 col: 1
@@ -11,7 +11,6 @@ const board = [
 //letterIndex 3 letter G row: 2 col: 2
 //letterIndex 4 letter H row: 0 col: 2
 //letterIndex 5 letter H row: 1 col: 2
-
 
 //letter A array:
 //letterIndex 0 letter A row: 0 col: 0
@@ -25,63 +24,61 @@ const board = [
 //letterIndex 4 letter H row: 0 col: 2
 //letterIndex 5 letter H row: 1 col: 2
 
-console.log(checkWord(board, "AGH"));
+//console.log(checkWord(board, "AGH"));
 
 //checkWord(){
-    //get board
-    //create array containing word letters
-        //loop through the board for each letter    
-            //add the matching letters' coordinates to the COORDINATES array
-        //if no matches, return FALSE
-    
-    //loop through the coordinates array
-        //group letters' coordinates in seperate arrays
-    
-    //Check adjacency of grouped letter coordinate arrays in pairs: 
-        //try every combinations until there is no break in the pairs
-            //if it breaks, return FALSE
-            //if the chain doesn't break, return TRUE
-        //[A1,A2] - [G1,G2]: A1-G1, A1-G2, A2-G1, A2-G2 => two possibilities: A2-G1, A2-G2
-                    //[G1] - [H1,H2]: G1-H1, G1-H2 => no adjacencies, chain breaks
-                    //[G2] - [H1,H2]: G2-H1, G2-H2 => one possibility: G2-H2, return TRUE
+//get board
+//create array containing word letters
+//loop through the board for each letter
+//add the matching letters' coordinates to the COORDINATES array
+//if no matches, return FALSE
 
-}
+//loop through the coordinates array
+//group letters' coordinates in seperate arrays
+
+//Check adjacency of grouped letter coordinate arrays in pairs:
+//try every combinations until there is no break in the pairs
+//if it breaks, return FALSE
+//if the chain doesn't break, return TRUE
+//[A1,A2] - [G1,G2]: A1-G1, A1-G2, A2-G1, A2-G2 => two possibilities: A2-G1, A2-G2
+//[G1] - [H1,H2]: G1-H1, G1-H2 => no adjacencies, chain breaks
+//[G2] - [H1,H2]: G2-H1, G2-H2 => one possibility: G2-H2, return TRUE
+
+//}
 
 //[1,2], [7,3], [5,4]
-function checkPairs(arr1, arr2){
+// function checkPairs(arr1, arr2){
 
-}
+// }
 
-function checkAdjacency(arr1, arr2, i =0, j=0){
+// function checkAdjacency(arr1, arr2, i =0, j=0){
 
-    if(!arr2[j]) {
-        checkAdjacency(arr1,arr2, i++, 0)
-    } 
-    if (arr1[i] + 1 === arr2[j]) {
-        return true
-    } else {
-        checkAdjacency(arr1,arr2, j++)
-    }
-}
+//     if(!arr2[j]) {
+//         checkAdjacency(arr1,arr2, i++, 0)
+//     }
+//     if (arr1[i] + 1 === arr2[j]) {
+//         return true
+//     } else {
+//         checkAdjacency(arr1,arr2, j++)
+//     }
+// }
 
-checkAdjacency([1,2], [7,3])
+// checkAdjacency([1,2], [7,3])
 
-function checkAdjacency(arr1, arr2, i =0, j=0){
+// function checkAdjacency(arr1, arr2, i =0, j=0){
 
-    if(!arr2[j]) {
-        return checkAdjacency(arr1,arr2, i++, 0)
-    } 
-    if (arr1[i] + 1 === arr2[j]) {
-        return true
-    } else {
-        return checkAdjacency(arr1,arr2, j++)
-    }
-    return false
-}
+//     if(!arr2[j]) {
+//         return checkAdjacency(arr1,arr2, i++, 0)
+//     }
+//     if (arr1[i] + 1 === arr2[j]) {
+//         return true
+//     } else {
+//         return checkAdjacency(arr1,arr2, j++)
+//     }
+//     return false
+// }
 
-checkAdjacency([1], [1])
-
-
+// checkAdjacency([1], [1])
 
 // let coordinates = [];
 // function checkWord(board, word) {
@@ -151,3 +148,92 @@ checkAdjacency([1], [1])
 //   });
 //   coordinates.sort((a, b) => a.letterIndex - b.letterIndex);
 // }
+
+///////////////////
+// Connect Four
+
+let pieces = [
+  "A_Yellow",
+  "B_Red",
+  "B_Yellow",
+  "C_Red",
+  "G_Yellow",
+  "C_Red",
+  "C_Yellow",
+  "D_Red",
+  "G_Yellow",
+  "D_Red",
+  "G_Yellow",
+  "D_Red",
+  "F_Yellow",
+  "E_Red",
+  "D_Yellow",
+];
+
+function whoIsWinner(pieces) {
+  let grid = Array.from({ length: 6 }, () => Array(7).fill(null));
+
+  for (let moves of pieces) {
+    let [col, color] = moves.split("_");
+    let colIndex = col.charCodeAt() - 65;
+    //charCode A = 65; colIndex = 0
+    //charCode B = 66; colIndex = 1
+    //charCode C = 67; colIndex = 2
+    //charCode D = 68; colIndex = 3
+    //charCode E = 69; colIndex = 4
+    //charCode F = 70; colIndex = 5
+    //charCode G = 71; colIndex = 6
+    let rowIndex = 5;
+
+    for (; rowIndex >= 0; rowIndex--) {
+      if (grid[rowIndex][colIndex] === null) break;
+    }
+    grid[rowIndex][colIndex] = color;
+    if (checkWinner(rowIndex, colIndex, color)) return color;
+  }
+
+  function checkWinner(row, col, color) {
+    // Check vertical
+    let count = 0;
+    for (let i = 0; i < 7; i++) {
+      if (grid[row][i] === color) {
+        count++;
+      }
+      count === 4 ? true : (count = 0);
+    }
+    // Check horizontal
+    for (let i = 0; i < 6; i++) {
+      if (grid[i][col] === color) {
+        count++;
+      }
+      count === 4 ? true : (count = 0);
+    }
+
+    // Check diagonally (down-right)
+    count = 0;
+    for (let i = -Math.min(row, col); i < Math.min(6 - row, 7 - col); i++) {
+      if (grid[row + i][col + i] === color) {
+        count++;
+        if (count === 4) return true;
+      } else {
+        count = 0;
+      }
+    }
+
+    // Check diagonally (down-left)
+    count = 0;
+    for (let i = -Math.min(row, 6 - col); i < Math.min(6 - row, col + 1); i++) {
+      if (grid[row + i][col - i] === color) {
+        count++;
+        if (count === 4) return true;
+      } else {
+        count = 0;
+      }
+    }
+
+    return false;
+  }
+  return "Draw";
+}
+
+console.log(whoIsWinner(pieces));
