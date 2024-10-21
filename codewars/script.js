@@ -202,6 +202,7 @@ function whoIsWinner(pieces) {
       count === 4 ? true : (count = 0);
     }
     // Check horizontal
+    count = 0;
     for (let i = 0; i < 6; i++) {
       if (grid[i][col] === color) {
         count++;
@@ -209,26 +210,24 @@ function whoIsWinner(pieces) {
       count === 4 ? true : (count = 0);
     }
 
-    // Check diagonally (down-right)
+    //(down left)
     count = 0;
-    for (let i = -Math.min(row, col); i < Math.min(6 - row, 7 - col); i++) {
-      if (grid[row + i][col + i] === color) {
+    let i = row;
+    for (let j = col; j >= 0; j--) {
+      if (grid[i][j]) {
         count++;
-        if (count === 4) return true;
-      } else {
-        count = 0;
       }
+      i++;
+      count === 4 ? true : (count = 0);
     }
 
-    // Check diagonally (down-left)
+    //(down right)
     count = 0;
-    for (let i = -Math.min(row, 6 - col); i < Math.min(6 - row, col + 1); i++) {
-      if (grid[row + i][col - i] === color) {
+    for (let j = col; j < 7; j++) {
+      if (grid[i][j]) {
         count++;
-        if (count === 4) return true;
-      } else {
-        count = 0;
       }
+      count === 4 ? true : (count = 0);
     }
 
     return false;
