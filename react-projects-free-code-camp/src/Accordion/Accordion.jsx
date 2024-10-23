@@ -18,7 +18,7 @@ const list = [
 
 function Accordion() {
   const [isMultipleSelection, setIsMultipleSelection] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+
   const [activeIndex, setActiveIndex] = useState(null);
 
   return (
@@ -37,8 +37,6 @@ function Accordion() {
           <AccordionBox
             key={index}
             index={index}
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
             activeIndex={activeIndex}
             setActiveIndex={setActiveIndex}
             isMultipleSelection={isMultipleSelection}

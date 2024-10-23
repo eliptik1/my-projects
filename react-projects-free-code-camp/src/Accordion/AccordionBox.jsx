@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function AccordionBox({
   title,
@@ -7,9 +7,14 @@ function AccordionBox({
   activeIndex,
   setActiveIndex,
   isMultipleSelection,
-  isOpen,
-  setIsOpen,
 }) {
+  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    setActiveIndex(null);
+    setIsOpen(false);
+    return () => {};
+  }, [isMultipleSelection]);
+
   return (
     <div className="flex flex-col  w-[500px]">
       <button
@@ -25,9 +30,10 @@ function AccordionBox({
       >
         <div>{title}</div>
       </button>
-      {isMultipleSelection && index == activeIndex ? (
+      {isMultipleSelection && isOpen ? (
         <div className="bg-orange-200 p-3">{children}</div>
       ) : (
+        !isMultipleSelection &&
         index == activeIndex && (
           <div className="bg-orange-200 p-3">{children}</div>
         )
